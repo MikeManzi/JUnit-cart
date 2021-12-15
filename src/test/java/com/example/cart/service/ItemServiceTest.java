@@ -29,4 +29,6 @@ public class ItemServiceTest {
                 new Item(2,"Item2",400,3,1200)));
         assertEquals(200,itemService.getAll().get(0).getValue());
     }
+
+
 }

@@ -23,22 +23,15 @@ public class CartService {
 
     public List<Cart> getAll() {
 
-        List<Cart> carts = cartRepository.findAll();
-
-        return carts;
+        return cartRepository.findAll();
     }
 
     public Cart getById(int id) {
         Optional<Cart> findById = cartRepository.findById(id);
-        if (findById.isPresent()) {
-            Cart cart = findById.get();
-            return cart;
-        }
-        return null;
+        return findById.orElse(null);
     }
 
     public ResponseEntity<?> addItem(int cartId, int id) {
-        // gushyiramo isanzwemo
         Optional<Cart> findById = cartRepository.findById(cartId);
         if (findById.isPresent()) {
             Cart cart = findById.get();
@@ -50,10 +43,10 @@ public class CartService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new APIResponse(false, "Item not found"));
             }
-            if (existingItems.contains(item)) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new APIResponse(false, "Item is already in the cart"));
-            }
+//            if (existingItems.contains(item)) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                        .body(new APIResponse(false, "Item is already in the cart"));
+//            }
 
             item.setValue(item.getQuantity() * item.getPrice());
             existingItems.add(item);
@@ -70,7 +63,6 @@ public class CartService {
     }
 
     public ResponseEntity<?> removeItem(int cartId, int id) {
-        // gushyiramo isanzwemo
         Optional<Cart> findById = cartRepository.findById(cartId);
         if (findById.isPresent()) {
             Cart cart = findById.get();
