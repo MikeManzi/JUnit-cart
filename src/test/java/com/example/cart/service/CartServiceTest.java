@@ -57,5 +57,20 @@ public class CartServiceTest {
 
     }
 
+    @Test
+    public void removeItem_success(){
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(1,"Item1",100,2,200));
+        items.add(new Item(2,"Item2",400,5,2000));
+        Cart cart = new Cart(1, "Item1", 2200, items.size(), items);
+        when(cartRepositoryMock.findById(1)).thenReturn(Optional.of(cart));
+        when(itemService.getById(2)).thenReturn(items.get(1));
+        items.remove(items.get(0));
+        cart.setItems(items);
+        when(cartRepositoryMock.save(cart)).thenReturn(cart);
+        assertEquals(1,cart.getItems().size());
+
+    }
+
 
 }

@@ -74,10 +74,10 @@ public class CartService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new APIResponse(false, "Item not found"));
             }
-            if (!existingItems.contains(item)) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new APIResponse(false, "Item is not in the cart"));
-            }
+//            if (!existingItems.contains(item)) {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                        .body(new APIResponse(false, "Item is not in the cart"));
+//            }
 
             item.setValue(item.getQuantity() * item.getPrice());
             existingItems.remove(item);
